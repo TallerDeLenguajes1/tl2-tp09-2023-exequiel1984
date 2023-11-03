@@ -51,16 +51,16 @@ public class UsuarioController : ControllerBase
             return BadRequest();
         else
             return auxTarea;
-    }
+    } */
 
     [HttpGet]
-    [Route("GetTareas")]
-    public ActionResult<List<Tarea>> GetTareas()
+    [Route("GetUsuarios")]
+    public ActionResult<List<Usuario>> GetUsuarios()
     {
-        return Ok(manejoTarea.GetTareas());
+        return Ok(usuarioRepository.GetAll());
     }
 
-    [HttpGet]
+    /* [HttpGet]
     [Route("GetTareasCompletadas")]
     public ActionResult<List<Tarea>> GetTareasCompletadas()
     {
