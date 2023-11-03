@@ -31,19 +31,21 @@ public class UsuarioController : ControllerBase
             return BadRequest();
         else 
             return tarea;
-    }
+    } */
 
-    [HttpPut("UpdTarea")]
-    public ActionResult<Tarea> UpdTarea(Tarea tarea)
+    [HttpPut("UpdUsuario")]
+    public ActionResult<Usuario> UpdUsuario(Usuario usuario)
     {
-        var auxTarea = manejoTarea.UpdTarea(tarea);
+        usuarioRepository.Update(usuario);
+        return usuario;
+        /* var auxUsuario = manejoTarea.UpdTarea(tarea);
         if(auxTarea == null)
             return BadRequest();
         else
-            return auxTarea;
+            return auxTarea; */
     }
 
-    [HttpDelete("DeleteTarea")]
+    /* [HttpDelete("DeleteTarea")]
     public ActionResult<Tarea> DeleteTarea(int id)
     {
         var auxTarea = manejoTarea.DeleteTarea(id);

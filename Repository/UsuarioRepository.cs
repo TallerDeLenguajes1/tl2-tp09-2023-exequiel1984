@@ -23,6 +23,15 @@ namespace Practico9
             }
         }
 
+        public void Update(Usuario usuario){
+            SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+            SQLiteCommand command = connection.CreateCommand();
+            command.CommandText = $"UPDATE  SET nombre_de_usuario = '{usuario.NombreDeUsuario}' WHERE Id = '{usuario.Id}';";
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
         public List<Usuario> GetAll(){
             var queryString = @"SELECT * FROM Usuario;";
             List<Usuario> usuarios = new List<Usuario>();
