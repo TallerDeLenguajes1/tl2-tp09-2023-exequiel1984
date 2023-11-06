@@ -50,7 +50,8 @@ public class UsuarioController : ControllerBase
         return "Bien hecho";
     }
 
-    /* [HttpDelete("DeleteTarea")]
+    /* [HttpDelete]
+    [Route("/")]
     public ActionResult<Tarea> DeleteTarea(int id)
     {
         var auxTarea = manejoTarea.DeleteTarea(id);
@@ -58,13 +59,5 @@ public class UsuarioController : ControllerBase
             return BadRequest();
         else
             return auxTarea;
-    } */
-
-    
-    /* [HttpGet]
-    [Route("GetTareasCompletadas")]
-    public ActionResult<List<Tarea>> GetTareasCompletadas()
-    {
-        return Ok(manejoTarea.GetTareasCompletadas());
     } */
 }

@@ -74,11 +74,24 @@ namespace Practico9
         public void Update(int id, Usuario usuario){
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
-                connection.Open();
                 var queryString = @"UPDATE Usuario SET nombre_de_usuario = @nombre WHERE id = @idUsuario;";
+                connection.Open();
                 var command = new SQLiteCommand(queryString, connection);
                 command.Parameters.Add(new SQLiteParameter("@nombre", usuario.NombreDeUsuario));
                 command.Parameters.Add(new SQLiteParameter("@idUsuario", id));
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void Remove(int id)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+            {
+                string query = @"DELETE FROM Usuario WHERE id = @id;";
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(query, connection);
+                command.Parameters.Add(new SQLiteParameter("@id", id));
                 command.ExecuteNonQuery();
                 connection.Close();
             }
