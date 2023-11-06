@@ -16,33 +16,38 @@ public class UsuarioController : ControllerBase
         usuarioRepository = new UsuarioRepository();
     }
 
-    [HttpPost("CrearUsuario")]
+    [HttpPost]
+    [Route("/api/usuario")]
     public ActionResult<Usuario> CrearUsuario(Usuario usuario)
     {
         usuarioRepository.Create(usuario);
         return Ok(usuario);
     }
 
-    /* [HttpGet("GetTarea")]
-    public ActionResult<Tarea> GetTarea(int id)
+    [HttpGet]
+    [Route("/api/usuarios")]
+    public ActionResult<IEnumerable<Usuario>> GetUsuarios()
     {
-        var tarea = manejoTarea.GetTarea(id);
-        if(tarea == null)
-            return BadRequest();
-        else 
-            return tarea;
-    } */
+        return Ok(usuarioRepository.GetAll());
+    }
 
-    [HttpPut("UpdUsuario")]
-    public ActionResult<Usuario> UpdUsuario(Usuario usuario)
+    [HttpGet]
+    [Route("/api/usuario/{id}")]
+    public ActionResult<Usuario> GetUsuario(int id)
     {
-        usuarioRepository.Update(usuario);
-        return usuario;
-        /* var auxUsuario = manejoTarea.UpdTarea(tarea);
-        if(auxTarea == null)
-            return BadRequest();
-        else
-            return auxTarea; */
+        Usuario usuario = usuarioRepository.GetById(id);
+        if(String.IsNullOrEmpty(usuario.NombreDeUsuario))
+            return NotFound("No lo encontré");
+        else 
+            return Ok(usuario);
+    }
+
+    [HttpPut]
+    [Route("/api/usuario/{id}/Nombre")]
+    public ActionResult<string> UpdUsuario(int id, Usuario usuario)
+    {
+        usuarioRepository.Update(id, usuario);
+        return "Bien hecho";
     }
 
     /* [HttpDelete("DeleteTarea")]
@@ -55,13 +60,7 @@ public class UsuarioController : ControllerBase
             return auxTarea;
     } */
 
-    [HttpGet]
-    [Route("GetUsuarios")]
-    public ActionResult<List<Usuario>> GetUsuarios()
-    {
-        return Ok(usuarioRepository.GetAll());
-    }
-
+    
     /* [HttpGet]
     [Route("GetTareasCompletadas")]
     public ActionResult<List<Tarea>> GetTareasCompletadas()
