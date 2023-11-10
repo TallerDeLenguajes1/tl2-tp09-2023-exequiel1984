@@ -88,5 +88,36 @@ namespace Practico9
             }
             return tarea;
         }
+
+        public List<Tarea> GetAllByIdUsuario(int idUsuario)
+        {
+            string query = @"SELECT * FROM Tarea WHERE id_usuario_asignado = @idUsuario;";
+            List<Tarea> tareas = new List<Tarea>();
+            using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+            {
+                SQLiteCommand command = new SQLiteCommand(query, connection);
+                command.Parameters.Add(new SQLiteParameter("@idUsuario", idUsuario));
+                connection.Open();
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Tarea tarea = new Tarea();
+                        tarea.Id = Convert.ToInt32(reader["id"]);
+                        tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+                        tarea.Nombre = reader["nombre"].ToString();
+                        tarea.Estado = (EstadoTarea) Convert.ToInt32(reader["estado"]);
+                        tarea.Descripcion = reader["descripcion"].ToString();
+                        tarea.Color = reader["color"].ToString();
+                        tarea.IdUsuarioAsignado = Convert.ToInt32(reader["id_usuario_asignado"]);
+                        tareas.Add(tarea);
+                    }
+                }
+
+                connection.Close();
+            }
+            return tareas;
+        }
     }
 }

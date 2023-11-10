@@ -6,5 +6,6 @@ namespace Practico9
         public void UpDateNombre(int id, string nombre);
         public void UpDateEstado(int id, EstadoTarea Estado);
         public Tarea GetById(int id);
+        public List<Tarea> GetAllByIdUsuario(int idUsuario);
     }
 }

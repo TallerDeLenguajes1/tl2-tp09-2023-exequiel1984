@@ -16,7 +16,7 @@ public class TareaController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/tarea")]
+    [Route("/api/Tarea")]
     public ActionResult<Tarea> CrearTarea(Tarea tarea)
     {
         tareaRepository.Create(tarea);
@@ -24,7 +24,7 @@ public class TareaController : ControllerBase
     }
 
     [HttpPut]
-    [Route("/api/tarea/{id}/Nombre/{Nombre}")]
+    [Route("/api/Tarea/{id}/Nombre/{Nombre}")]
     public ActionResult<string> UpdTarea(int id, String Nombre)
     {
         tareaRepository.UpDateNombre(id, Nombre);
@@ -32,7 +32,7 @@ public class TareaController : ControllerBase
     }
 
     [HttpPut]
-    [Route("/api/tarea/{id}/Estado/{Estado}")]
+    [Route("/api/Tarea/{id}/Estado/{Estado}")]
     public ActionResult<string> UpdEstado(int id, EstadoTarea Estado)
     {
         tareaRepository.UpDateEstado(id, Estado);
@@ -40,7 +40,7 @@ public class TareaController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/api/tarea/{id}")]
+    [Route("/api/Tarea/{id}")]
     public ActionResult<Tarea> GetTarea(int id)
     {
         Tarea tarea = tareaRepository.GetById(id);
@@ -48,6 +48,16 @@ public class TareaController : ControllerBase
             return NotFound("No lo encontré");
         else 
             return Ok(tarea);
+    }
+
+    [HttpGet]
+    [Route("/api/Tarea/Usuario/{id}")]
+    public ActionResult<IEnumerable<Tarea>> GetTareasByIdUsuario(int id){
+        List<Tarea> tareas = tareaRepository.GetAllByIdUsuario(id);
+        if (tareas.Count != 0)
+            return Ok(tareas);
+        else
+            return BadRequest("Todavia no tengo tableros");
     }
     /* [HttpGet]
     [Route("/api/tableros")]
