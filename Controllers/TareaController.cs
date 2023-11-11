@@ -57,8 +57,28 @@ public class TareaController : ControllerBase
         if (tareas.Count != 0)
             return Ok(tareas);
         else
-            return BadRequest("Todavia no tengo tableros");
+            return BadRequest("No hay tareas para ese usuario");
     }
+
+    [HttpGet]
+    [Route("/api/Tarea/Tablero/{id}")]
+    public ActionResult<IEnumerable<Tarea>> GetTareasByIdTablero(int id){
+        List<Tarea> tareas = tareaRepository.GetAllByIdTablero(id);
+        if (tareas.Count != 0)
+            return Ok(tareas);
+        else
+            return BadRequest("No hay tareas para ese tablero");
+    }
+
+    [HttpDelete]
+    [Route("/api/Tarea/{id}")]
+    public ActionResult<Tarea> DeleteTarea(int id)
+    {
+        tareaRepository.Remove(id);
+        
+        return Ok("Exitos");
+    }
+
     /* [HttpGet]
     [Route("/api/tableros")]
     public ActionResult<IEnumerable<Tablero>> GetTableros(){
